@@ -11,12 +11,12 @@ python-multipart==0.0.6
 # Database
 sqlalchemy==2.0.23
 
-# LangChain and document processing
-langchain==0.1.0
-langchain-core==0.1.28
-langchain-community==0.0.10
-langchain-text-splitters==0.0.1
-langchain-nomic==0.0.1
+# LangChain and document processing (no strict pins - let pip resolve)
+langchain>=0.1.0
+langchain-core>=0.1.28
+langchain-community>=0.0.10
+langchain-text-splitters>=0.0.1
+langchain-nomic>=0.0.1
 
 # Embeddings and vector store
 numpy==1.24.3
@@ -36,9 +36,3 @@ pydantic-settings==2.1.0
 
 # HTTP client (for API calls)
 httpx==0.25.1
-
-# Optional: OpenAI SDK (if using OpenAI for synthesis)
-# openai==1.3.5
-
-# Optional: Mistral SDK (if using Mistral)
-# mistralai==0.0.11
