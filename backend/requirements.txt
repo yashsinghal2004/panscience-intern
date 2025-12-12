@@ -1,3 +1,8 @@
+# Build tools (install first)
+setuptools>=68.0.0
+wheel>=0.41.0
+pip>=23.3.0
+
 # FastAPI and server
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
