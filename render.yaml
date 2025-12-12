@@ -1,0 +1,58 @@
+services:
+  # Backend API Service
+  - type: web
+    name: rag-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd backend &&
+      pip install -r requirements.txt
+    startCommand: |
+      cd backend &&
+      uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: rag-database
+          property: connectionString
+      - key: NOMIC_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: DEBUG
+        value: "false"
+      - key: LOG_LEVEL
+        value: "INFO"
+    disk:
+      name: rag-storage
+      mountPath: /opt/render/project/src/backend/data
+      sizeGB: 1
+
+  # Frontend Static Site
+  - type: web
+    name: rag-frontend
+    env: static
+    region: oregon
+    plan: free
+    buildCommand: |
+      cd frontend &&
+      npm install &&
+      npm run build
+    staticPublishPath: frontend/.next
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+
+  # PostgreSQL Database
+databases:
+  - name: rag-database
+    databaseName: ragdb
+    user: raguser
+    plan: free
+    region: oregon
+
